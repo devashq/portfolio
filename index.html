@@ -264,16 +264,16 @@ h1.hero-title em{font-style:italic;color:var(--gold)}
 .cta-actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:36px}
 
 /* FOOTER */
-footer{background:var(--bg-base);padding:52px 60px;display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:40px;border-top:1px solid var(--border)}
+footer{background:var(--bg-base);padding:52px 60px;display:flex;flex-direction:column;align-items:center;gap:20px;text-align:center;border-top:1px solid var(--border)}
 .footer-logo-text{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--ivory);margin-bottom:12px}
 .footer-tagline{font-size:13px;color:var(--mid);line-height:1.6;max-width:220px}
 .footer-col-title{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--border2);margin-bottom:20px}
 .footer-links-list{display:flex;flex-direction:column;gap:12px}
 .footer-links-list a{font-size:13px;color:var(--mid);text-decoration:none;transition:color .2s}
 .footer-links-list a:hover{color:var(--ivory)}
-.footer-bottom{background:var(--bg-base);padding:20px 60px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.footer-bottom{background:var(--bg-base);padding:20px 60px;border-top:1px solid var(--border);display:flex;justify-content:center;align-items:center}
 .fb-copy{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1px;color:var(--border2)}
-.fb-social{display:flex;gap:24px}
+.fb-social{display:flex;flex-wrap:wrap;justify-content:center;gap:24px}
 .fb-social a{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--mid);text-decoration:none;transition:color .2s}
 .fb-social a:hover{color:var(--gold-lt)}
 
@@ -306,7 +306,6 @@ a,button{-webkit-tap-highlight-color:transparent}
   .testi-grid{grid-template-columns:1fr 1fr}
   .testi-card:last-child{grid-column:span 2}
   .case-study{grid-template-columns:48px 1fr 140px 60px;gap:20px;padding:28px 24px}
-  footer{grid-template-columns:1fr 1fr;gap:32px}
   #clients{padding:24px 32px;gap:32px}
   .clients-logos{gap:32px}
   .cta-inner{padding:80px 32px;gap:48px}
@@ -383,7 +382,7 @@ a,button{-webkit-tap-highlight-color:transparent}
   .cta-actions .btn-dark,.cta-actions .btn-outline{width:100%;justify-content:center;padding:16px 24px}
 
   /* FOOTER */
-  footer{grid-template-columns:1fr 1fr;padding:40px 20px;gap:28px}
+  footer{padding:40px 20px}
   .footer-bottom{padding:16px 20px;flex-direction:column;gap:12px;text-align:center}
   .fb-social{flex-wrap:wrap;justify-content:center;gap:16px}
 }
@@ -403,7 +402,7 @@ a,button{-webkit-tap-highlight-color:transparent}
   .testi-card{padding:28px 20px}
   .engage-card{padding:28px 20px}
   .cta-inner{padding:52px 16px}
-  footer{grid-template-columns:1fr;padding:32px 16px;gap:24px}
+  footer{padding:32px 16px}
   .footer-bottom{padding:14px 16px}
   #clients{padding:16px}
   .clients-logos{gap:16px 24px}
@@ -421,7 +420,7 @@ a,button{-webkit-tap-highlight-color:transparent}
 
 <!-- NAV -->
 <nav id="main-nav">
-  <a href="#" class="nav-logo">Ashiqur Rahman <sup>Studio</sup></a>
+  <a href="#" class="nav-logo">Dev Ashiqur</a>
   <ul class="nav-center">
     <li><a href="#value">Services</a></li>
     <li><a href="#work">Work</a></li>
@@ -835,46 +834,19 @@ a,button{-webkit-tap-highlight-color:transparent}
 
 <!-- FOOTER -->
 <footer>
-  <div>
-    <div class="footer-logo-text">Ashiqur Rahman</div>
-    <p class="footer-tagline">Full-Stack Developer & AI Engineer. Building software that works as hard as you do.</p>
-  </div>
-  <div>
-    <div class="footer-col-title">Services</div>
-    <div class="footer-links-list">
-      <a href="/services/">Full-Stack Development</a>
-      <a href="/services/">AI Engineering & Agents</a>
-      <a href="/services/">Automation & Integrations</a>
-      <a href="/services/">SaaS & Web Apps</a>
-    </div>
-  </div>
-  <div>
-    <div class="footer-col-title">Quick Links</div>
-    <div class="footer-links-list">
-      <a href="/about/">About</a>
-      <a href="https://softliro.com/case-studies/" target="_blank">Portfolio</a>
-      <a href="https://softliro.com/" target="_blank">Softliro Agency</a>
-      <a href="https://calendly.com/ashiqurtech/30min" target="_blank">Contact</a>
-    </div>
-  </div>
-  <div>
-    <div class="footer-col-title">Connect</div>
-    <div class="footer-links-list">
-      <a href="https://www.linkedin.com/in/devashiqur/" target="_blank">LinkedIn</a>
-      <a href="https://www.fiverr.com/s/gDbyLo9" target="_blank">Fiverr</a>
-      <a href="https://www.upwork.com/freelancers/~013fc07e6e863f9f1c" target="_blank">Upwork</a>
-      <a href="https://x.com/devashiqur" target="_blank">Twitter / X</a>
-    </div>
+  <div class="footer-logo-text">Dev Ashiqur</div>
+  <div class="fb-social">
+    <a href="https://www.linkedin.com/in/devashiqur/" target="_blank">LinkedIn</a>
+    <a href="https://x.com/devashiqur" target="_blank">X</a>
+    <a href="https://www.instagram.com/devashiqur/" target="_blank">Instagram</a>
+    <a href="https://dribbble.com/devashiqur" target="_blank">Dribbble</a>
+    <a href="https://www.behance.net/devashiqur" target="_blank">Behance</a>
+    <a href="https://www.fiverr.com/s/gDbyLo9" target="_blank">Fiverr</a>
+    <a href="https://www.upwork.com/freelancers/~013fc07e6e863f9f1c" target="_blank">Upwork</a>
   </div>
 </footer>
 <div class="footer-bottom">
-  <span class="fb-copy">© 2026 Ashiqur Rahman. All Rights Reserved.</span>
-  <div class="fb-social">
-    <a href="https://www.linkedin.com/in/devashiqur/" target="_blank">LinkedIn</a>
-    <a href="https://dribbble.com/devashiqur" target="_blank">Dribbble</a>
-    <a href="https://www.behance.net/devashiqur" target="_blank">Behance</a>
-    <a href="https://www.instagram.com/devashiqur/" target="_blank">Instagram</a>
-  </div>
+  <span class="fb-copy">© 2026 Dev Ashiqur. All Rights Reserved.</span>
 </div>
 
 <script>
