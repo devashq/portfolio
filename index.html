@@ -414,14 +414,19 @@ a,button{-webkit-tap-highlight-color:transparent}
   .approach-foot{gap:12px}
 }
 /* CONTACT */
-#contact{background:var(--bg-base);border-bottom:1px solid var(--border)}
-.contact-inner{max-width:1160px;margin:0 auto;padding:100px 60px;display:grid;grid-template-columns:.9fr 1.1fr;gap:80px;align-items:start}
-.contact-title{font-family:'Cormorant Garamond',serif;font-size:clamp(40px,4vw,64px);font-weight:500;color:var(--ivory);line-height:1.05;letter-spacing:-.5px;margin:20px 0 24px}
+.contact-modal{position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s}
+.contact-modal.open{opacity:1;visibility:visible}
+.contact-backdrop{position:absolute;inset:0;background:rgba(5,5,10,.78);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.contact-inner{position:relative;width:100%;max-width:640px;max-height:calc(100vh - 48px);overflow-y:auto;background:#0d0d17;border:1px solid var(--border2);border-radius:20px;padding:40px;box-shadow:0 30px 80px rgba(0,0,0,.6);transform:translateY(20px) scale(.98);transition:transform .35s ease}
+.contact-modal.open .contact-inner{transform:none}
+.contact-close{position:absolute;top:16px;right:16px;width:38px;height:38px;border-radius:50%;border:1px solid var(--border2);background:transparent;color:var(--mid);font-size:22px;line-height:1;cursor:pointer;transition:color .2s,border-color .2s}
+.contact-close:hover{color:var(--ivory);border-color:var(--gold)}
+.contact-head{margin-bottom:28px;padding-right:40px}
+body.modal-open{overflow:hidden}
+.contact-title{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,4vw,46px);font-weight:500;color:var(--ivory);line-height:1.05;letter-spacing:-.5px;margin:14px 0 14px}
 .contact-title em{font-style:italic;color:var(--gold)}
 .contact-intro{font-size:15px;color:var(--mid);line-height:1.7;max-width:380px}
-.contact-mail{display:inline-block;margin-top:28px;font-family:'DM Mono',monospace;font-size:13px;letter-spacing:1px;color:var(--gold);text-decoration:none;border-bottom:1px solid var(--border2);padding-bottom:4px;transition:border-color .2s}
-.contact-mail:hover{border-color:var(--gold)}
-.contact-form{display:grid;grid-template-columns:1fr 1fr;gap:18px;padding:40px;border:1px solid var(--border2);background:linear-gradient(160deg,rgba(196,149,106,.06),transparent 60%);border-radius:18px}
+.contact-form{display:grid;grid-template-columns:1fr 1fr;gap:18px}
 .cf-field{display:flex;flex-direction:column;gap:8px}
 .cf-field.full{grid-column:1/-1}
 .cf-field label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--mid)}
@@ -436,8 +441,7 @@ a,button{-webkit-tap-highlight-color:transparent}
 .cf-submit:disabled{opacity:.6;cursor:wait}
 .cf-status{grid-column:1/-1;font-size:13px;min-height:18px;color:var(--mid)}
 .cf-status.ok{color:#7fd1a0}.cf-status.err{color:#e58a8a}
-@media(max-width:900px){.contact-inner{grid-template-columns:1fr;gap:40px;padding:72px 20px}.contact-form{grid-template-columns:1fr;padding:24px}}
-@media(max-width:480px){.contact-inner{padding:52px 16px}}
+@media(max-width:600px){.contact-modal{padding:12px}.contact-inner{padding:28px 20px;max-height:calc(100vh - 24px)}.contact-form{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -862,15 +866,16 @@ a,button{-webkit-tap-highlight-color:transparent}
 
 <!-- FOOTER -->
 <!-- CONTACT -->
-<section id="contact">
+<div id="contact" class="contact-modal" role="dialog" aria-modal="true" aria-labelledby="contact-title" aria-hidden="true">
+  <div class="contact-backdrop" data-close></div>
   <div class="contact-inner">
-    <div class="reveal">
+    <button type="button" class="contact-close" aria-label="Close" data-close>×</button>
+    <div class="contact-head">
       <span class="section-eyebrow">Contact</span>
-      <h2 class="contact-title">Tell me about<br>your <em>project.</em></h2>
+      <h2 class="contact-title" id="contact-title">Tell me about your <em>project.</em></h2>
       <p class="contact-intro">Share a few details about what you're building. I read every message personally and reply within a few hours.</p>
-      <a class="contact-mail" href="mailto:dev.ashiqur@gmail.com">dev.ashiqur@gmail.com</a>
     </div>
-    <form class="contact-form reveal reveal-delay-1" id="contact-form" action="https://formsubmit.co/dev.ashiqur@gmail.com" method="POST">
+    <form class="contact-form" id="contact-form" action="https://formsubmit.co/dev.ashiqur@gmail.com" method="POST">
       <input type="hidden" name="_subject" value="New project inquiry from portfolio">
       <input type="hidden" name="_template" value="table">
       <input type="hidden" name="_captcha" value="false">
@@ -910,7 +915,7 @@ a,button{-webkit-tap-highlight-color:transparent}
       <p class="cf-status" id="cf-status" role="status" aria-live="polite"></p>
     </form>
   </div>
-</section>
+</div>
 
 <footer>
   <div class="footer-logo-text">Ashiqur Rahman</div>
@@ -962,13 +967,16 @@ cf.addEventListener('submit', async e => {
     cf.reset();
     st.className = 'cf-status ok'; st.textContent = "Thanks! Your message is on its way. I'll reply within a few hours.";
   } catch {
-    st.className = 'cf-status err'; st.textContent = 'Something went wrong. Please email dev.ashiqur@gmail.com directly.';
+    st.className = 'cf-status err'; st.textContent = 'Something went wrong. Please try again in a moment.';
   }
   btn.disabled = false; btn.textContent = 'Send Message →';
 });
-document.querySelectorAll('a[href="#contact"]').forEach(a => a.addEventListener('click', () => {
-  setTimeout(() => document.getElementById('cf-name').focus({ preventScroll: true }), 700);
-}));
+const modal = document.getElementById('contact');
+function openContact(e){ if(e) e.preventDefault(); modal.classList.add('open'); modal.setAttribute('aria-hidden','false'); document.body.classList.add('modal-open'); setTimeout(() => document.getElementById('cf-name').focus(), 150); }
+function closeContact(){ modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); document.body.classList.remove('modal-open'); }
+document.querySelectorAll('a[href="#contact"]').forEach(a => a.addEventListener('click', openContact));
+modal.querySelectorAll('[data-close]').forEach(el => el.addEventListener('click', closeContact));
+document.addEventListener('keydown', e => { if(e.key === 'Escape' && modal.classList.contains('open')) closeContact(); });
 </script>
 </body>
 </html>
