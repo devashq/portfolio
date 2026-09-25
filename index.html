@@ -413,6 +413,11 @@ a,button{-webkit-tap-highlight-color:transparent}
   .a-step{padding:24px 16px}
   .approach-foot{gap:12px}
 }
+.inline-cta{margin-top:56px;display:flex;align-items:center;justify-content:space-between;gap:32px;padding:28px 32px;border:1px solid var(--border2);border-radius:16px;background:linear-gradient(120deg,rgba(196,149,106,.08),transparent 70%)}
+.icta-title{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:500;color:var(--ivory);line-height:1.15}
+.icta-sub{font-size:14px;color:var(--mid);margin-top:6px}
+.icta-actions{display:flex;gap:12px;flex-shrink:0;flex-wrap:wrap}
+@media(max-width:768px){.inline-cta{flex-direction:column;align-items:flex-start;padding:24px 20px;margin-top:40px}.icta-actions{width:100%;flex-direction:column}.icta-actions a{width:100%;justify-content:center}}
 /* CONTACT */
 .contact-modal{position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s}
 .contact-modal.open{opacity:1;visibility:visible}
@@ -436,6 +441,7 @@ body.modal-open{overflow:hidden}
 .cf-field textarea{min-height:140px;resize:vertical}
 .cf-field input::placeholder,.cf-field textarea::placeholder{color:#4a4a66}
 .cf-field input:focus,.cf-field select:focus,.cf-field textarea:focus{border-color:var(--gold);background:rgba(196,149,106,.04);box-shadow:0 0 0 4px rgba(196,149,106,.12)}
+.cf-field label span{color:var(--gold);font-weight:600}
 .cf-hp{position:absolute;left:-9999px}
 .cf-submit{grid-column:1/-1;justify-content:center;border:0;cursor:pointer;border-radius:10px;font-family:inherit}
 .cf-submit:disabled{opacity:.6;cursor:wait}
@@ -477,8 +483,8 @@ body.modal-open{overflow:hidden}
       <h1 class="hero-title">Your website<br>should work as<br>hard as <em>you do.</em></h1>
       <p class="hero-desc">I'm Ashiq, a full-stack developer and AI engineer who builds web apps, SaaS products and AI-powered systems that automate the busywork, convert visitors into revenue, and scale with your business.</p>
       <div class="hero-actions">
-        <a href="#work" class="btn-dark">See My Work →</a>
-        <a href="#engage" class="btn-outline">How We Work</a>
+        <a href="#contact" class="btn-dark">Start a Conversation →</a>
+        <a href="#work" class="btn-outline">See My Work</a>
       </div>
     </div>
     <div class="hero-right">
@@ -584,6 +590,16 @@ body.modal-open{overflow:hidden}
         </div>
       </div>
     </div>
+    <div class="inline-cta reveal">
+      <div>
+        <div class="icta-title">Not sure which service fits?</div>
+        <div class="icta-sub">Tell me what you're building and I'll recommend the right approach, free.</div>
+      </div>
+      <div class="icta-actions">
+        <a href="#contact" class="btn-dark">Start a Conversation →</a>
+        <a href="https://calendly.com/ashiqurtech/30min" target="_blank" class="btn-outline">Book a Call</a>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -651,6 +667,16 @@ body.modal-open{overflow:hidden}
         </div>
         <div class="cs-arrow">↗</div>
       </a>
+    </div>
+    <div class="inline-cta reveal">
+      <div>
+        <div class="icta-title">Want results like these?</div>
+        <div class="icta-sub">Let's talk about your project and what success looks like for you.</div>
+      </div>
+      <div class="icta-actions">
+        <a href="#contact" class="btn-dark">Start a Conversation →</a>
+        <a href="https://calendly.com/ashiqurtech/30min" target="_blank" class="btn-outline">Book a Call</a>
+      </div>
     </div>
   </div>
 </section>
@@ -773,6 +799,16 @@ body.modal-open{overflow:hidden}
             <div class="tc-role">Transport · Europe</div>
           </div>
         </div>
+      </div>
+    </div>
+    <div class="inline-cta reveal">
+      <div>
+        <div class="icta-title">Be my next success story.</div>
+        <div class="icta-sub">Reply within a few hours. You work directly with me from day one.</div>
+      </div>
+      <div class="icta-actions">
+        <a href="#contact" class="btn-dark">Start a Conversation →</a>
+        <a href="https://calendly.com/ashiqurtech/30min" target="_blank" class="btn-outline">Book a Call</a>
       </div>
     </div>
   </div>
@@ -911,6 +947,10 @@ body.modal-open{overflow:hidden}
         <label for="cf-message">Project details</label>
         <textarea id="cf-message" name="message" placeholder="What are you building, and what does success look like?" required></textarea>
       </div>
+      <div class="cf-field full cf-captcha">
+        <label for="cf-captcha">Quick check: what is <span id="cf-q"></span>?</label>
+        <input id="cf-captcha" type="text" inputmode="numeric" pattern="[0-9]*" autocomplete="off" placeholder="Your answer" required>
+      </div>
       <button type="submit" class="btn-dark cf-submit">Send Message →</button>
       <p class="cf-status" id="cf-status" role="status" aria-live="polite"></p>
     </form>
@@ -955,8 +995,22 @@ window.addEventListener('scroll', () => {
   document.getElementById('main-nav').classList.toggle('scrolled', window.scrollY > 40);
 });
 const cf = document.getElementById('contact-form');
+let cfAnswer = 0;
+function newCaptcha(){
+  const a = 2 + Math.floor(Math.random() * 9), b = 1 + Math.floor(Math.random() * 9);
+  cfAnswer = a + b;
+  document.getElementById('cf-q').textContent = a + ' + ' + b;
+  document.getElementById('cf-captcha').value = '';
+}
+newCaptcha();
 cf.addEventListener('submit', async e => {
   e.preventDefault();
+  if (parseInt(document.getElementById('cf-captcha').value, 10) !== cfAnswer) {
+    const st0 = document.getElementById('cf-status');
+    st0.className = 'cf-status err'; st0.textContent = 'That answer is not right. Please try the new question.';
+    newCaptcha(); document.getElementById('cf-captcha').focus();
+    return;
+  }
   const btn = cf.querySelector('.cf-submit'), st = document.getElementById('cf-status');
   btn.disabled = true; btn.textContent = 'Sending…'; st.className = 'cf-status'; st.textContent = '';
   try {
@@ -964,7 +1018,7 @@ cf.addEventListener('submit', async e => {
       method: 'POST', headers: { 'Accept': 'application/json' }, body: new FormData(cf)
     });
     if (!res.ok) throw new Error();
-    cf.reset();
+    cf.reset(); newCaptcha();
     st.className = 'cf-status ok'; st.textContent = "Thanks! Your message is on its way. I'll reply within a few hours.";
   } catch {
     st.className = 'cf-status err'; st.textContent = 'Something went wrong. Please try again in a moment.';
@@ -972,7 +1026,7 @@ cf.addEventListener('submit', async e => {
   btn.disabled = false; btn.textContent = 'Send Message →';
 });
 const modal = document.getElementById('contact');
-function openContact(e){ if(e) e.preventDefault(); modal.classList.add('open'); modal.setAttribute('aria-hidden','false'); document.body.classList.add('modal-open'); setTimeout(() => document.getElementById('cf-name').focus(), 150); }
+function openContact(e){ if(e) e.preventDefault(); newCaptcha(); modal.classList.add('open'); modal.setAttribute('aria-hidden','false'); document.body.classList.add('modal-open'); setTimeout(() => document.getElementById('cf-name').focus(), 150); }
 function closeContact(){ modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); document.body.classList.remove('modal-open'); }
 document.querySelectorAll('a[href="#contact"]').forEach(a => a.addEventListener('click', openContact));
 modal.querySelectorAll('[data-close]').forEach(el => el.addEventListener('click', closeContact));
