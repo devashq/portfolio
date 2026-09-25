@@ -436,6 +436,7 @@ body.modal-open{overflow:hidden}
 .cf-field textarea{min-height:140px;resize:vertical}
 .cf-field input::placeholder,.cf-field textarea::placeholder{color:#4a4a66}
 .cf-field input:focus,.cf-field select:focus,.cf-field textarea:focus{border-color:var(--gold);background:rgba(196,149,106,.04);box-shadow:0 0 0 4px rgba(196,149,106,.12)}
+.cf-field label span{color:var(--gold);font-weight:600}
 .cf-hp{position:absolute;left:-9999px}
 .cf-submit{grid-column:1/-1;justify-content:center;border:0;cursor:pointer;border-radius:10px;font-family:inherit}
 .cf-submit:disabled{opacity:.6;cursor:wait}
@@ -911,6 +912,10 @@ body.modal-open{overflow:hidden}
         <label for="cf-message">Project details</label>
         <textarea id="cf-message" name="message" placeholder="What are you building, and what does success look like?" required></textarea>
       </div>
+      <div class="cf-field full cf-captcha">
+        <label for="cf-captcha">Quick check: what is <span id="cf-q"></span>?</label>
+        <input id="cf-captcha" type="text" inputmode="numeric" pattern="[0-9]*" autocomplete="off" placeholder="Your answer" required>
+      </div>
       <button type="submit" class="btn-dark cf-submit">Send Message →</button>
       <p class="cf-status" id="cf-status" role="status" aria-live="polite"></p>
     </form>
@@ -955,8 +960,22 @@ window.addEventListener('scroll', () => {
   document.getElementById('main-nav').classList.toggle('scrolled', window.scrollY > 40);
 });
 const cf = document.getElementById('contact-form');
+let cfAnswer = 0;
+function newCaptcha(){
+  const a = 2 + Math.floor(Math.random() * 9), b = 1 + Math.floor(Math.random() * 9);
+  cfAnswer = a + b;
+  document.getElementById('cf-q').textContent = a + ' + ' + b;
+  document.getElementById('cf-captcha').value = '';
+}
+newCaptcha();
 cf.addEventListener('submit', async e => {
   e.preventDefault();
+  if (parseInt(document.getElementById('cf-captcha').value, 10) !== cfAnswer) {
+    const st0 = document.getElementById('cf-status');
+    st0.className = 'cf-status err'; st0.textContent = 'That answer is not right. Please try the new question.';
+    newCaptcha(); document.getElementById('cf-captcha').focus();
+    return;
+  }
   const btn = cf.querySelector('.cf-submit'), st = document.getElementById('cf-status');
   btn.disabled = true; btn.textContent = 'Sending…'; st.className = 'cf-status'; st.textContent = '';
   try {
@@ -964,7 +983,7 @@ cf.addEventListener('submit', async e => {
       method: 'POST', headers: { 'Accept': 'application/json' }, body: new FormData(cf)
     });
     if (!res.ok) throw new Error();
-    cf.reset();
+    cf.reset(); newCaptcha();
     st.className = 'cf-status ok'; st.textContent = "Thanks! Your message is on its way. I'll reply within a few hours.";
   } catch {
     st.className = 'cf-status err'; st.textContent = 'Something went wrong. Please try again in a moment.';
@@ -972,7 +991,7 @@ cf.addEventListener('submit', async e => {
   btn.disabled = false; btn.textContent = 'Send Message →';
 });
 const modal = document.getElementById('contact');
-function openContact(e){ if(e) e.preventDefault(); modal.classList.add('open'); modal.setAttribute('aria-hidden','false'); document.body.classList.add('modal-open'); setTimeout(() => document.getElementById('cf-name').focus(), 150); }
+function openContact(e){ if(e) e.preventDefault(); newCaptcha(); modal.classList.add('open'); modal.setAttribute('aria-hidden','false'); document.body.classList.add('modal-open'); setTimeout(() => document.getElementById('cf-name').focus(), 150); }
 function closeContact(){ modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); document.body.classList.remove('modal-open'); }
 document.querySelectorAll('a[href="#contact"]').forEach(a => a.addEventListener('click', openContact));
 modal.querySelectorAll('[data-close]').forEach(el => el.addEventListener('click', closeContact));
