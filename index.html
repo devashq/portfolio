@@ -413,6 +413,11 @@ a,button{-webkit-tap-highlight-color:transparent}
   .a-step{padding:24px 16px}
   .approach-foot{gap:12px}
 }
+.inline-cta{margin-top:56px;display:flex;align-items:center;justify-content:space-between;gap:32px;padding:28px 32px;border:1px solid var(--border2);border-radius:16px;background:linear-gradient(120deg,rgba(196,149,106,.08),transparent 70%)}
+.icta-title{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:500;color:var(--ivory);line-height:1.15}
+.icta-sub{font-size:14px;color:var(--mid);margin-top:6px}
+.icta-actions{display:flex;gap:12px;flex-shrink:0;flex-wrap:wrap}
+@media(max-width:768px){.inline-cta{flex-direction:column;align-items:flex-start;padding:24px 20px;margin-top:40px}.icta-actions{width:100%;flex-direction:column}.icta-actions a{width:100%;justify-content:center}}
 /* CONTACT */
 .contact-modal{position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s}
 .contact-modal.open{opacity:1;visibility:visible}
@@ -478,8 +483,8 @@ body.modal-open{overflow:hidden}
       <h1 class="hero-title">Your website<br>should work as<br>hard as <em>you do.</em></h1>
       <p class="hero-desc">I'm Ashiq, a full-stack developer and AI engineer who builds web apps, SaaS products and AI-powered systems that automate the busywork, convert visitors into revenue, and scale with your business.</p>
       <div class="hero-actions">
-        <a href="#work" class="btn-dark">See My Work →</a>
-        <a href="#engage" class="btn-outline">How We Work</a>
+        <a href="#contact" class="btn-dark">Start a Conversation →</a>
+        <a href="#work" class="btn-outline">See My Work</a>
       </div>
     </div>
     <div class="hero-right">
@@ -585,6 +590,16 @@ body.modal-open{overflow:hidden}
         </div>
       </div>
     </div>
+    <div class="inline-cta reveal">
+      <div>
+        <div class="icta-title">Not sure which service fits?</div>
+        <div class="icta-sub">Tell me what you're building and I'll recommend the right approach, free.</div>
+      </div>
+      <div class="icta-actions">
+        <a href="#contact" class="btn-dark">Start a Conversation →</a>
+        <a href="https://calendly.com/ashiqurtech/30min" target="_blank" class="btn-outline">Book a Call</a>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -652,6 +667,16 @@ body.modal-open{overflow:hidden}
         </div>
         <div class="cs-arrow">↗</div>
       </a>
+    </div>
+    <div class="inline-cta reveal">
+      <div>
+        <div class="icta-title">Want results like these?</div>
+        <div class="icta-sub">Let's talk about your project and what success looks like for you.</div>
+      </div>
+      <div class="icta-actions">
+        <a href="#contact" class="btn-dark">Start a Conversation →</a>
+        <a href="https://calendly.com/ashiqurtech/30min" target="_blank" class="btn-outline">Book a Call</a>
+      </div>
     </div>
   </div>
 </section>
@@ -774,6 +799,16 @@ body.modal-open{overflow:hidden}
             <div class="tc-role">Transport · Europe</div>
           </div>
         </div>
+      </div>
+    </div>
+    <div class="inline-cta reveal">
+      <div>
+        <div class="icta-title">Be my next success story.</div>
+        <div class="icta-sub">Reply within a few hours. You work directly with me from day one.</div>
+      </div>
+      <div class="icta-actions">
+        <a href="#contact" class="btn-dark">Start a Conversation →</a>
+        <a href="https://calendly.com/ashiqurtech/30min" target="_blank" class="btn-outline">Book a Call</a>
       </div>
     </div>
   </div>
