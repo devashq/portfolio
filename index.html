@@ -457,7 +457,7 @@ a,button{-webkit-tap-highlight-color:transparent}
   </ul>
   <div class="nav-right">
     <span class="nav-tag">Open to Work</span>
-    <a href="#cta" class="nav-btn">Book a Call</a>
+    <a href="https://calendly.com/ashiqurtech/30min" target="_blank" class="nav-btn">Book a Call</a>
   </div>
 </nav>
 
@@ -793,7 +793,7 @@ a,button{-webkit-tap-highlight-color:transparent}
           <div class="ec-item"><span class="ec-check">✓</span>Responsive, mobile-first UI</div>
           <div class="ec-item"><span class="ec-check">✓</span>Cloud deployment & handover docs</div>
         </div>
-        <a href="https://www.fiverr.com/s/gDbyLo9" target="_blank" class="ec-cta ec-cta-outline">Start a Project →</a>
+        <a href="#contact" class="ec-cta ec-cta-outline">Start a Conversation →</a>
       </div>
       <div class="engage-card featured reveal reveal-delay-1">
         <span class="ec-tag">Most Popular</span>
@@ -805,7 +805,7 @@ a,button{-webkit-tap-highlight-color:transparent}
           <div class="ec-item"><span class="ec-check">✓</span>Tool, API & CRM connections</div>
           <div class="ec-item"><span class="ec-check">✓</span>Testing, guardrails & monitoring</div>
         </div>
-        <a href="https://www.fiverr.com/s/gDbyLo9" target="_blank" class="ec-cta ec-cta-gold">Let's Build Your AI →</a>
+        <a href="#contact" class="ec-cta ec-cta-gold">Start a Conversation →</a>
       </div>
       <div class="engage-card reveal reveal-delay-2">
         <span class="ec-tag">Efficiency</span>
@@ -817,7 +817,7 @@ a,button{-webkit-tap-highlight-color:transparent}
           <div class="ec-item"><span class="ec-check">✓</span>CRM, email & API integrations</div>
           <div class="ec-item"><span class="ec-check">✓</span>Ongoing support & optimisation</div>
         </div>
-        <a href="https://calendly.com/ashiqurtech/30min" target="_blank" class="ec-cta ec-cta-dark">Get in Touch →</a>
+        <a href="#contact" class="ec-cta ec-cta-dark">Start a Conversation →</a>
       </div>
     </div>
   </div>
@@ -830,8 +830,8 @@ a,button{-webkit-tap-highlight-color:transparent}
       <p class="cta-pre">Ready to start?</p>
       <h2 class="cta-title">Let's build something<br>you're proud to <em>show off.</em></h2>
       <div class="cta-actions">
-        <a href="https://calendly.com/ashiqurtech/30min" target="_blank" class="btn-dark">Start a Conversation →</a>
-        <a href="https://www.fiverr.com/s/gDbyLo9" target="_blank" class="btn-outline">View on Fiverr</a>
+        <a href="#contact" class="btn-dark">Start a Conversation →</a>
+        <a href="https://calendly.com/ashiqurtech/30min" target="_blank" class="btn-outline">Book a Call</a>
       </div>
     </div>
     <div class="cta-right">
@@ -966,6 +966,9 @@ cf.addEventListener('submit', async e => {
   }
   btn.disabled = false; btn.textContent = 'Send Message →';
 });
+document.querySelectorAll('a[href="#contact"]').forEach(a => a.addEventListener('click', () => {
+  setTimeout(() => document.getElementById('cf-name').focus({ preventScroll: true }), 700);
+}));
 </script>
 </body>
 </html>
